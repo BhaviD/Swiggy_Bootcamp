@@ -7,6 +7,7 @@ import (
 	"google.golang.org/grpc"
 	"log"
 	"net"
+	"strings"
 )
 
 type server struct {
@@ -14,7 +15,7 @@ type server struct {
 }
 
 func (*server) Greet (ctx context.Context, req *greetpb.GreetRequest) (*greetpb.GreetResponse, error) {
-	fmt.Println("Function called...")
+	fmt.Println("Greet called...")
 
 	firstName := req.GetGreeting().GetFirstName()
 	lastName := req.GetGreeting().GetLastName()
@@ -22,6 +23,21 @@ func (*server) Greet (ctx context.Context, req *greetpb.GreetRequest) (*greetpb.
 	result := "Hello : " + firstName + ", "  + lastName
 	res := &greetpb.GreetResponse {
 		Result: result,
+	}
+	return res, nil
+}
+
+func (*server) GreetFullName(ctx context.Context, req *greetpb.GreetRequest) (*greetpb.GreetFullNameResponse, error)  {
+	fmt.Println("GreetFullName called...")
+
+	firstName := req.GetGreeting().GetFirstName()
+	lastName := req.GetGreeting().GetLastName()
+
+	res := &greetpb.GreetFullNameResponse{
+		Greeting: &greetpb.Greeting{
+			FirstName: strings.ToUpper(firstName),
+			LastName: strings.ToUpper(lastName),
+		},
 	}
 	return res, nil
 }
