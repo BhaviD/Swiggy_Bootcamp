@@ -2,10 +2,10 @@ package main
 
 import (
 	"fmt"
+	"github.com/BhaviD/Swiggy_Bootcamp/go_lang_basics/gRPC/src/services/greet/greetpb"
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
 	"log"
-	"services/greet/greetpb"
 )
 
 func main() {
